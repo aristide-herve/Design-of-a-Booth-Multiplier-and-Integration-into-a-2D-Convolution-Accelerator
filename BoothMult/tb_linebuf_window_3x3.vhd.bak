@@ -1,0 +1,112 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity tb_linebuf_window_3x3 is
+end entity;
+
+architecture tb of tb_linebuf_window_3x3 is
+
+  -- Paramètres de test
+  constant IMG_WIDTH  : integer := 8;
+  constant IMG_HEIGHT : integer := 6;
+  constant PIXEL_W    : integer := 8;
+
+  -- Signaux
+  signal clk          : std_logic := '0';
+  signal rst_n        : std_logic := '0';
+  signal pixel_in     : std_logic_vector(PIXEL_W-1 downto 0);
+  signal pixel_valid  : std_logic;
+
+  signal w00, w01, w02 : std_logic_vector(PIXEL_W-1 downto 0);
+  signal w10, w11, w12 : std_logic_vector(PIXEL_W-1 downto 0);
+  signal w20, w21, w22 : std_logic_vector(PIXEL_W-1 downto 0);
+  signal window_valid  : std_logic;
+
+begin
+
+  --------------------------------------------------------------------
+  -- Horloge continue 100 MHz
+  --------------------------------------------------------------------
+  clk_process : process
+  begin
+    while true loop
+      clk <= '0';
+      wait for 5 ns;
+      clk <= '1';
+      wait for 5 ns;
+    end loop;
+  end process;
+
+  --------------------------------------------------------------------
+  -- DUT
+  --------------------------------------------------------------------
+  dut_inst : entity work.linebuf_window_3x3
+    generic map (
+      IMG_WIDTH => IMG_WIDTH,
+      PIXEL_W   => PIXEL_W
+    )
+    port map (
+      clk => clk,
+      rst_n => rst_n,
+      pixel_in => pixel_in,
+      pixel_valid => pixel_valid,
+      w00 => w00, w01 => w01, w02 => w02,
+      w10 => w10, w11 => w11, w12 => w12,
+      w20 => w20, w21 => w21, w22 => w22,
+      window_valid => window_valid
+    );
+
+  --------------------------------------------------------------------
+  -- Stimulus : image test 8x6
+  --------------------------------------------------------------------
+  stimulus : process
+    variable x, y : integer;
+  begin
+    -- Reset
+    rst_n <= '0';
+    pixel_valid <= '0';
+    pixel_in <= (others => '0');
+    wait for 20 ns;
+    rst_n <= '1';
+    wait until rising_edge(clk);
+
+    -- Envoi pixels
+    for y in 0 to IMG_HEIGHT-1 loop
+      for x in 0 to IMG_WIDTH-1 loop
+        pixel_in <= std_logic_vector(to_unsigned(y*10 + x, PIXEL_W));
+        pixel_valid <= '1';
+        wait until rising_edge(clk);
+      end loop;
+    end loop;
+
+    -- Fin de flux
+    pixel_valid <= '0';
+    pixel_in <= (others => '0');
+
+    wait;  -- arrêt simulation
+  end process;
+
+  --------------------------------------------------------------------
+  -- Monitor : affichage console
+  --------------------------------------------------------------------
+  monitor : process(clk)
+  begin
+    if rising_edge(clk) then
+      if window_valid = '1' then
+        report "Window: " &
+               integer'image(to_integer(unsigned(w00))) & " " &
+               integer'image(to_integer(unsigned(w01))) & " " &
+               integer'image(to_integer(unsigned(w02))) & " | " &
+               integer'image(to_integer(unsigned(w10))) & " " &
+               integer'image(to_integer(unsigned(w11))) & " " &
+               integer'image(to_integer(unsigned(w12))) & " | " &
+               integer'image(to_integer(unsigned(w20))) & " " &
+               integer'image(to_integer(unsigned(w21))) & " " &
+               integer'image(to_integer(unsigned(w22)))
+               severity note;
+      end if;
+    end if;
+  end process;
+
+end architecture;

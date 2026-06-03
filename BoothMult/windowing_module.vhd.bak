@@ -1,0 +1,60 @@
+library IEEE;
+use IEEE.std_logic;
+use IEEE.numeric_std;
+
+entity windowing_module is
+    port (
+        clk : in std_logic;
+        rst : in std_logic;
+        image_data : in signed(15 downto 0);
+        pixel_window : out signed(143 downto 0); -- 9 pixels de 16 bits chacun
+        kernel_constants : out signed(143 downto 0) -- 9 constantes de 16 bits chacune
+    );
+end entity;
+
+architecture behavioral of windowing_module is
+    type buffer_type is array (0 to 2, 0 to 2) of signed(15 downto 0);
+    signal buffer : buffer_type;
+    signal kernel : buffer_type := (
+        (to_signed(1, 16), to_signed(2, 16), to_signed(3, 16)),
+        (to_signed(4, 16), to_signed(5, 16), to_signed(6, 16)),
+        (to_signed(7, 16), to_signed(8, 16), to_signed(9, 16))
+    );
+    signal row : integer := 0;
+    signal col : integer := 0;
+    signal image_width : integer := 4;
+    signal image_height : integer := 4;
+begin
+    process(clk)
+    begin
+        if rising_edge(clk) then
+            if rst = '1' then
+                row <= 0;
+                col <= 0;
+                buffer <= (others => (others => (others => '0')));
+            else
+                -- Déplacer la fenêtre glissante sur l'image
+                if col < image_width - 2 then
+                    col <= col + 1;
+                else
+                    col <= 0;
+                    if row < image_height - 2 then
+                        row <= row + 1;
+                    else
+                        row <= 0;
+                    end if;
+                end if;
+                -- Mettre à jour le buffer avec les pixels de l'image
+                buffer(0) <= image_data;
+                buffer(1) <= image_data;
+                buffer(2) <= image_data;
+                -- Fournir les pixels de l'image issus de la fenêtre glissante
+                pixel_window <= buffer(0) & buffer(1) & buffer(2);
+                -- Fournir les constantes du kernel
+                kernel_constants <= kernel(0)(0) & kernel(0)(1) & kernel(0)(2) &
+                                    kernel(1)(0) & kernel(1)(1) & kernel(1)(2) &
+                                    kernel(2)(0) & kernel(2)(1) & kernel(2)(2);
+            end if;
+        end if;
+    end process;
+end architecture;

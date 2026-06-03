@@ -1,0 +1,89 @@
+Archive Project report for BoothMult
+Sun Jan 11 23:37:38 2026
+Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Archive Project Summary
+  3. Archive Project Messages
+  4. Files Archived
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2016  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Intel and sold by Intel or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+
+
+
++----------------------------------------------------------------+
+; Archive Project Summary                                        ;
++------------------------+---------------------------------------+
+; Archive Project Status ; Successful - Sun Jan 11 23:37:38 2026 ;
+; Revision Name          ; BoothMult                             ;
+; Top-level Entity Name  ; top_conv3x3                           ;
+; Family                 ; Cyclone IV E                          ;
++------------------------+---------------------------------------+
+
+
++--------------------------+
+; Archive Project Messages ;
++--------------------------+
+Info: File Set 'Source control' contains:
+    Info: Project source and settings files
+    Info: Automatically detected source files
+Info: Archive will store files relative to the closest common parent directory
+Info (13213): Using common directory D:/VLSI pour IA/BoothMult/
+Info: ----------------------------------------------------------
+Info: ----------------------------------------------------------
+Info: Generated archive 'D:/VLSI pour IA/BoothMult/AI_Accelerator_BoothMult.qar'
+Info: ----------------------------------------------------------
+Info: ----------------------------------------------------------
+Info: Generated report 'BoothMult.archive.rpt'
+Info (23030): Evaluation of Tcl script c:/intelfpga_lite/16.1/quartus/common/tcl/apps/qpm/qar.tcl was successful
+Info: Quartus Prime Shell was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 4818 megabytes
+    Info: Processing ended: Sun Jan 11 23:37:38 2026
+    Info: Elapsed time: 00:00:24
+    Info: Total CPU time (on all processors): 00:00:02
+
+
++--------------------------------------------------------------+
+; Files Archived                                               ;
++--------------------------------------------------------------+
+; File Name                                                    ;
++--------------------------------------------------------------+
+; b_transformer.vhd                                            ;
+; BoothMult.qpf                                                ;
+; BoothMult.qsf                                                ;
+; BoothMult.vhd                                                ;
+; c:/intelfpga_lite/16.1/quartus/bin64/assignment_defaults.qdf ;
+; conv3x3_core.vhd                                             ;
+; cpa.vhd                                                      ;
+; csa.vhd                                                      ;
+; encb.vhd                                                     ;
+; linebuf_window_3x3.vhd                                       ;
+; mux5.vhd                                                     ;
+; tb_BoothMult.vhd                                             ;
+; tb_top_conv3x3.vhd                                           ;
+; top_conv3x3.vhd                                              ;
++--------------------------------------------------------------+
+
+

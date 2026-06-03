@@ -1,0 +1,39 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity b_tranformer is
+    port (
+        B      : in  std_logic_vector(15 downto 0);
+        S1     : out std_logic_vector(16 downto 0);  -- +B
+        S2     : out std_logic_vector(16 downto 0);  -- -B
+        S3     : out std_logic_vector(16 downto 0);  -- +2B
+        S4     : out std_logic_vector(16 downto 0);  -- -2B
+        S5     : out std_logic_vector(16 downto 0)   -- 5e sortie (à définir)
+    );
+end entity;
+
+architecture rtl of b_transformer is
+    signal B_ext : signed(16 downto 0);
+
+	 begin
+
+    -- Extension de signe de B (16 bits → 17 bits)
+    B_ext <= resize(signed(B), 17);
+
+    -- +B
+    S1 <= std_logic_vector(B_ext);
+
+    -- -B
+    S2 <= std_logic_vector(-B_ext);
+
+    -- +2B (décalage à gauche)
+    S3 <= std_logic_vector(shift_left(B_ext, 1));
+
+    -- -2B
+    S4 <= std_logic_vector(-shift_left(B_ext, 1));
+
+    -- S5 (à définir, par défaut 0)
+    S5 <= (others => '0');
+
+end architecture;

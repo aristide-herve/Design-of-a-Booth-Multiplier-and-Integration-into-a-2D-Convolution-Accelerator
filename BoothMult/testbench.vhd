@@ -1,0 +1,96 @@
+--library ieee;
+--use ieee.std_logic_1164.all;
+--use ieee.numeric_std.all;
+--use std.textio.all;
+--
+--entity testbench is
+--end entity;
+--
+--architecture behavioral of testbench is
+--
+--    -- Signaux
+--    signal clk             : std_logic := '0';
+--    signal rst             : std_logic := '1';
+--    signal image_data      : signed(15 downto 0) := (others => '0');
+--    signal pixel_window    : signed(143 downto 0);
+--    signal kernel_constants: signed(143 downto 0);
+--
+--    -- Fichier image
+--    file image_file : text open read_mode is "image.txt";
+--
+--begin
+--
+-- 
+--    
+--    --------------------------------------------------
+--    -- Génération de l'horloge
+--    --------------------------------------------------
+--    clk_process : process
+--    begin
+--        clk <= '0';
+--        wait for 5 ns;
+--        clk <= '1';
+--        wait for 5 ns;
+--    end process;
+--
+--
+--    --------------------------------------------------
+--    -- Stimulus : lecture fichier et injection pixels
+--    --------------------------------------------------
+--    stim_process : process
+--        variable L    : line;
+--        variable temp : integer;
+--    begin
+--        -- Reset initial
+--        rst <= '1';
+--        wait for 10 ns;
+--        rst <= '0';
+--
+--        -- Lecture du fichier image
+--        while not endfile(image_file) loop
+--            readline(image_file, L);
+--            read(L, temp);
+--            image_data <= to_signed(temp, 16);
+--            wait for 10 ns; -- 1 pixel / cycle
+--        end loop;
+--
+--        wait; -- Fin simulation
+--    end process;
+--
+--    --------------------------------------------------
+--    -- DUT
+--    --------------------------------------------------
+--    windowing_module_inst : entity work.windowing_module
+--        port map (
+--            clk              => clk,
+--            rst              => rst,
+--            image_data       => image_data,
+--            pixel_window     => pixel_window,
+--            kernel_constants => kernel_constants
+--        );
+--
+--    --------------------------------------------------
+--    -- Affichage fenêtre 3x3 dans le terminal
+--    --------------------------------------------------
+--    display_process : process(clk)
+--        variable L : line;
+--        variable val : integer;
+--        variable row, col : integer;
+--    begin
+--        if rising_edge(clk) then
+--            -- Chaque cycle affiche la fenêtre actuelle
+--            L := null;
+--            for row in 0 to 2 loop
+--                for col in 0 to 2 loop
+--                    val := to_integer(pixel_window(16*(row*3 + col +1)-1 downto 16*(row*3 + col)));
+--                    write(L, val);
+--                    write(L, string'(" "));
+--                end loop;
+--                writeline(output, L); -- affichage ligne par ligne
+--                L := null;
+--            end loop;
+--            writeline(output, L); -- ligne vide entre fenêtres
+--        end if;
+--    end process;
+--
+--end architecture;

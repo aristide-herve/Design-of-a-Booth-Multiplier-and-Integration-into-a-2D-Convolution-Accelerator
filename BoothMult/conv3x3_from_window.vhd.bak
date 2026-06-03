@@ -1,0 +1,69 @@
+-- conv3x3_from_window.vhd
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity conv3x3_from_window is
+    port (
+        pixel_win : in std_logic_vector(9*16-1 downto 0); -- bus R1C1..R3C3 as in line_buffer_3lines_simple
+        -- kernel inputs (same order as core)
+        k00 : in std_logic_vector(15 downto 0);
+        k01 : in std_logic_vector(15 downto 0);
+        k02 : in std_logic_vector(15 downto 0);
+        k10 : in std_logic_vector(15 downto 0);
+        k11 : in std_logic_vector(15 downto 0);
+        k12 : in std_logic_vector(15 downto 0);
+        k20 : in std_logic_vector(15 downto 0);
+        k21 : in std_logic_vector(15 downto 0);
+        k22 : in std_logic_vector(15 downto 0);
+
+        Qout : out std_logic_vector(31 downto 0)
+    );
+end entity;
+
+architecture rtl of conv3x3_from_window is
+
+    signal p_arr : array(0 to 8) of std_logic_vector(15 downto 0);
+
+begin
+
+    -- mapping du bus (même ordonnancement que line_buffer fourni)
+    -- pixel_win slices:
+    -- [15:0]   = R1C1  (line2(x-2))
+    -- [31:16]  = R1C2
+    -- [47:32]  = R1C3
+    -- [63:48]  = R2C1
+    -- [79:64]  = R2C2
+    -- [95:80]  = R2C3
+    -- [111:96] = R3C1
+    -- [127:112]= R3C2
+    -- [143:128]= R3C3
+
+    p_arr(0) <= pixel_win( 15 downto  0);
+    p_arr(1) <= pixel_win( 31 downto 16);
+    p_arr(2) <= pixel_win( 47 downto 32);
+    p_arr(3) <= pixel_win( 63 downto 48);
+    p_arr(4) <= pixel_win( 79 downto 64);
+    p_arr(5) <= pixel_win( 95 downto 80);
+    p_arr(6) <= pixel_win(111 downto 96);
+    p_arr(7) <= pixel_win(127 downto112);
+    p_arr(8) <= pixel_win(143 downto128);
+
+    core: entity work.conv3x3_core
+        port map(
+            p00 => p_arr(0),
+            p01 => p_arr(1),
+            p02 => p_arr(2),
+            p10 => p_arr(3),
+            p11 => p_arr(4),
+            p12 => p_arr(5),
+            p20 => p_arr(6),
+            p21 => p_arr(7),
+            p22 => p_arr(8),
+            k00 => k00, k01 => k01, k02 => k02,
+            k10 => k10, k11 => k11, k12 => k12,
+            k20 => k20, k21 => k21, k22 => k22,
+            Qout => Qout
+        );
+
+end architecture;

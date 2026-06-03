@@ -1,0 +1,25 @@
+Quartus Prime Archive log --	D:/VLSI pour IA/BoothMult/AI_Accelerator_BoothMult.qarlog
+
+Archive:	D:/VLSI pour IA/BoothMult/AI_Accelerator_BoothMult.qar
+Date:		Sun Jan 11 23:37:37 2026
+Quartus Prime		16.1.0 Build 196 10/24/2016 SJ Lite Edition
+
+	=========== Files Selected: ===========
+D:/VLSI pour IA/BoothMult/BoothMult.qpf
+D:/VLSI pour IA/BoothMult/BoothMult.qsf
+D:/VLSI pour IA/BoothMult/BoothMult.vhd
+D:/VLSI pour IA/BoothMult/b_transformer.vhd
+D:/VLSI pour IA/BoothMult/conv3x3_core.vhd
+D:/VLSI pour IA/BoothMult/cpa.vhd
+D:/VLSI pour IA/BoothMult/csa.vhd
+D:/VLSI pour IA/BoothMult/encb.vhd
+D:/VLSI pour IA/BoothMult/linebuf_window_3x3.vhd
+D:/VLSI pour IA/BoothMult/mux5.vhd
+D:/VLSI pour IA/BoothMult/tb_BoothMult.vhd
+D:/VLSI pour IA/BoothMult/tb_top_conv3x3.vhd
+D:/VLSI pour IA/BoothMult/top_conv3x3.vhd
+c:/intelfpga_lite/16.1/quartus/bin64/assignment_defaults.qdf
+	======= Total: 14 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.

@@ -1,0 +1,33 @@
+Quartus Prime Archive log --	D:/VLSI pour IA/BoothMult/BoothMultGolden.qarlog
+
+Archive:	D:/VLSI pour IA/BoothMult/BoothMultGolden.qar
+Date:		Wed Dec 24 13:31:01 2025
+Quartus Prime		16.1.0 Build 196 10/24/2016 SJ Lite Edition
+
+	=========== Files Selected: ===========
+D:/VLSI pour IA/BoothMult/BoothMult.qpf
+D:/VLSI pour IA/BoothMult/BoothMult.qsf
+D:/VLSI pour IA/BoothMult/BoothMult.vhd
+D:/VLSI pour IA/BoothMult/b_transformer.vhd
+D:/VLSI pour IA/BoothMult/conv3x3_core.vhd
+D:/VLSI pour IA/BoothMult/conv3x3_core_debug.vhd
+D:/VLSI pour IA/BoothMult/conv3x3_from_window.vhd
+D:/VLSI pour IA/BoothMult/cpa.vhd
+D:/VLSI pour IA/BoothMult/csa.vhd
+D:/VLSI pour IA/BoothMult/encb.vhd
+D:/VLSI pour IA/BoothMult/image.txt
+D:/VLSI pour IA/BoothMult/linebuf_window_3x3.vhd
+D:/VLSI pour IA/BoothMult/mux5.vhd
+D:/VLSI pour IA/BoothMult/tb_BoothMult.vhd
+D:/VLSI pour IA/BoothMult/tb_conv3x3.vhd
+D:/VLSI pour IA/BoothMult/tb_conv3x3_core.vhd
+D:/VLSI pour IA/BoothMult/tb_conv3x3_core_debug.vhd
+D:/VLSI pour IA/BoothMult/tb_linebuf_window_3x3.vhd
+D:/VLSI pour IA/BoothMult/tb_top_conv3x3.vhd
+D:/VLSI pour IA/BoothMult/top_conv3x3.vhd
+D:/VLSI pour IA/BoothMult/windowing_module.vhd
+c:/intelfpga_lite/16.1/quartus/bin64/assignment_defaults.qdf
+	======= Total: 22 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.

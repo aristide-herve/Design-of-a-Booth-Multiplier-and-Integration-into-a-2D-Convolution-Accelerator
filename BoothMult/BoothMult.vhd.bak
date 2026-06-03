@@ -1,0 +1,261 @@
+Voici les fichiers VHDL demandés — un fichier par bloc. Ouvre chaque section pour voir le code complet prêt à être copié.
+
+---
+
+## Fichier: encb.vhd
+
+```vhdl
+-- encb.vhd
+-- Encodeur Booth (Radix-4) : prend un triplet A[2:0] et sort un code 3 bits (option A : index 0..4)
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity encb is
+    port (
+        triplet : in  std_logic_vector(2 downto 0); -- {A[i+1], A[i], A[i-1]}
+        sel     : out std_logic_vector(2 downto 0)  -- 000->M0, 001->+B, 010->-B, 011->+2B, 100->-2B
+    );
+end entity encb;
+
+architecture rtl of encb is
+begin
+    process(triplet)
+    begin
+        case triplet is
+            when "000" => sel <= "000"; -- 0
+            when "001" => sel <= "001"; -- +1 -> +B
+            when "010" => sel <= "001"; -- +1 -> +B
+            when "011" => sel <= "011"; -- +2 -> +2B
+            when "100" => sel <= "100"; -- -2 -> -2B
+            when "101" => sel <= "010"; -- -1 -> -B
+            when "110" => sel <= "010"; -- -1 -> -B
+            when "111" => sel <= "000"; -- 0
+            when others => sel <= "000";
+        end case;
+    end process;
+end architecture rtl;
+```
+
+---
+
+## Fichier: b_transformer.vhd
+
+```vhdl
+-- b_transformer.vhd
+-- Transformer de B : produit simultanément M0..M4 (17 bits)
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity b_transformer is
+    port (
+        B  : in  std_logic_vector(15 downto 0);
+        M0 : out std_logic_vector(16 downto 0); -- 0
+        M1 : out std_logic_vector(16 downto 0); -- +B
+        M2 : out std_logic_vector(16 downto 0); -- -B
+        M3 : out std_logic_vector(16 downto 0); -- +2B
+        M4 : out std_logic_vector(16 downto 0)  -- -2B
+    );
+end entity b_transformer;
+
+architecture rtl of b_transformer is
+    signal B_s   : signed(15 downto 0);
+    signal B_ext : signed(16 downto 0);
+    signal B2    : signed(16 downto 0);
+begin
+    B_s <= signed(B);
+    B_ext <= resize(B_s, 17);
+    B2 <= shift_left(B_ext, 1);
+
+    -- M0 = 0
+    M0 <= (others => '0');
+
+    -- +B
+    M1 <= std_logic_vector(B_ext);
+
+    -- -B
+    M2 <= std_logic_vector(-B_ext);
+
+    -- +2B
+    M3 <= std_logic_vector(B2);
+
+    -- -2B
+    M4 <= std_logic_vector(-B2);
+end architecture rtl;
+```
+
+---
+
+## Fichier: mux5.vhd
+
+```vhdl
+-- mux5.vhd
+-- Multiplexeur 5 entrées (17 bits) contrôlé par sel (3 bits, option A : 0..4)
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity mux5 is
+    port (
+        M0  : in  std_logic_vector(16 downto 0);
+        M1  : in  std_logic_vector(16 downto 0);
+        M2  : in  std_logic_vector(16 downto 0);
+        M3  : in  std_logic_vector(16 downto 0);
+        M4  : in  std_logic_vector(16 downto 0);
+        sel : in  std_logic_vector(2 downto 0);
+        P   : out std_logic_vector(16 downto 0)
+    );
+end entity mux5;
+
+architecture rtl of mux5 is
+begin
+    process(M0,M1,M2,M3,M4,sel)
+    begin
+        case sel is
+            when "000" => P <= M0; -- 0
+            when "001" => P <= M1; -- +B
+            when "010" => P <= M2; -- -B
+            when "011" => P <= M3; -- +2B
+            when "100" => P <= M4; -- -2B
+            when others => P <= (others => '0');
+        end case;
+    end process;
+end architecture rtl;
+```
+
+---
+
+## Fichier: booth_multiplier_16bit.vhd
+
+```vhdl
+-- booth_multiplier_16bit.vhd
+-- Top-level (partiel) : instancie 1x b_transformer, 8x ENCB et 8x MUX5
+-- Produit 8 partiels P0..P7 (17 bits) qui doivent être ensuite shiftés et sommés par un arbre CSA (placeholder)
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity booth_multiplier_16 is
+    port (
+        A : in  std_logic_vector(15 downto 0); -- multiplicande (utilisé pour les triplets)
+        B : in  std_logic_vector(15 downto 0); -- multiplicateur
+        -- sorties partielles, non shiftées (chaque P_i est la valeur à additionner puis à shift de 2*i)
+        P0 : out std_logic_vector(16 downto 0);
+        P1 : out std_logic_vector(16 downto 0);
+        P2 : out std_logic_vector(16 downto 0);
+        P3 : out std_logic_vector(16 downto 0);
+        P4 : out std_logic_vector(16 downto 0);
+        P5 : out std_logic_vector(16 downto 0);
+        P6 : out std_logic_vector(16 downto 0);
+        P7 : out std_logic_vector(16 downto 0)
+    );
+end entity booth_multiplier_16;
+
+architecture structurale of booth_multiplier_16 is
+    -- composants
+    component encb
+        port(
+            triplet : in  std_logic_vector(2 downto 0);
+            sel     : out std_logic_vector(2 downto 0)
+        );
+    end component;
+
+    component b_transformer
+        port(
+            B  : in  std_logic_vector(15 downto 0);
+            M0 : out std_logic_vector(16 downto 0);
+            M1 : out std_logic_vector(16 downto 0);
+            M2 : out std_logic_vector(16 downto 0);
+            M3 : out std_logic_vector(16 downto 0);
+            M4 : out std_logic_vector(16 downto 0)
+        );
+    end component;
+
+    component mux5
+        port(
+            M0  : in  std_logic_vector(16 downto 0);
+            M1  : in  std_logic_vector(16 downto 0);
+            M2  : in  std_logic_vector(16 downto 0);
+            M3  : in  std_logic_vector(16 downto 0);
+            M4  : in  std_logic_vector(16 downto 0);
+            sel : in  std_logic_vector(2 downto 0);
+            P   : out std_logic_vector(16 downto 0)
+        );
+    end component;
+
+    -- signaux internes
+    signal triplet : std_logic_vector(2 downto 0);
+    signal sel_sig : std_logic_vector(2 downto 0);
+    signal sel  : array(0 to 7) of std_logic_vector(2 downto 0);
+
+    signal M0_s, M1_s, M2_s, M3_s, M4_s : std_logic_vector(16 downto 0);
+
+begin
+    -- Instanciation du b_transformer (transformer de B)
+    b_transformer_inst : b_transformer
+        port map(
+            B  => B,
+            M0 => M0_s,
+            M1 => M1_s,
+            M2 => M2_s,
+            M3 => M3_s,
+            M4 => M4_s
+        );
+
+    -- Génération des 8 triplets à partir de A
+    -- triplet i correspond à {A[2*i+1], A[2*i], A[2*i-1]}
+    -- attention à l'indice -1 : on suppose A[-1] = '0' (bit étendu à la droite)
+    gen_triplets: process(A)
+        variable a_ext : std_logic_vector(16 downto 0);
+    begin
+        a_ext := A & '0'; -- concatène un 0 LSB pour A[-1]
+        for i in 0 to 7 loop
+            -- indices : msb = 2*i+1, mid = 2*i, lsb = 2*i-1
+            -- dans a_ext : a_ext(k) correspond à A(k) pour k=0..15, a_ext(16) = '0'
+            -- on doit construire {A[2*i+1], A[2*i], A[2*i-1]}
+            variable b2, b1, b0 : std_logic;
+            begin
+                b2 := a_ext(2*i+1);
+                b1 := a_ext(2*i);
+                if (2*i-1) >= 0 then
+                    b0 := a_ext(2*i-1);
+                else
+                    b0 := '0';
+                end if;
+                sel(i) <= (b2 & b1 & b0);
+            end;
+        end loop;
+    end process;
+
+    -- Instancier 8 encodeurs (ENCB)
+    encb0: encb port map(triplet => sel(0), sel => sel(0));
+    encb1: encb port map(triplet => sel(1), sel => sel(1));
+    encb2: encb port map(triplet => sel(2), sel => sel(2));
+    encb3: encb port map(triplet => sel(3), sel => sel(3));
+    encb4: encb port map(triplet => sel(4), sel => sel(4));
+    encb5: encb port map(triplet => sel(5), sel => sel(5));
+    encb6: encb port map(triplet => sel(6), sel => sel(6));
+    encb7: encb port map(triplet => sel(7), sel => sel(7));
+
+    -- Instancier 8 multiplexeurs (tous alimentés par M0..M4 du b_transformer)
+    mux0: mux5 port map(M0 => M0_s, M1 => M1_s, M2 => M2_s, M3 => M3_s, M4 => M4_s, sel => sel(0), P => P0);
+    mux1: mux5 port map(M0 => M0_s, M1 => M1_s, M2 => M2_s, M3 => M3_s, M4 => M4_s, sel => sel(1), P => P1);
+    mux2: mux5 port map(M0 => M0_s, M1 => M1_s, M2 => M2_s, M3 => M3_s, M4 => M4_s, sel => sel(2), P => P2);
+    mux3: mux5 port map(M0 => M0_s, M1 => M1_s, M2 => M2_s, M3 => M3_s, M4 => M4_s, sel => sel(3), P => P3);
+    mux4: mux5 port map(M0 => M0_s, M1 => M1_s, M2 => M2_s, M3 => M3_s, M4 => M4_s, sel => sel(4), P => P4);
+    mux5: mux5 port map(M0 => M0_s, M1 => M1_s, M2 => M2_s, M3 => M3_s, M4 => M4_s, sel => sel(5), P => P5);
+    mux6: mux5 port map(M0 => M0_s, M1 => M1_s, M2 => M2_s, M3 => M3_s, M4 => M4_s, sel => sel(6), P => P6);
+    mux7: mux5 port map(M0 => M0_s, M1 => M1_s, M2 => M2_s, M3 => M3_s, M4 => M4_s, sel => sel(7), P => P7);
+
+    -- Note: les sorties P0..P7 sont non shiftées ici. Avant de les additionner dans l'arbre CSA,
+    -- il faudra décaler chaque Pi de 2*i positions (multiplication par 4^i). La conception de l'arbre CSA
+    -- et des shifters dépendra de ton choix d'implémentation (somme signée, décalage logique arithmétique, etc.).
+
+end architecture structurale;
+```
+
+---
+
+
