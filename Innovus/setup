@@ -1,0 +1,6 @@
+set VAR = `pwd`
+setenv TC_PATH $VAR
+setenv DEMOLIB /soft/cadence/pdk/GPDK045/gsclib045_svt_v4.4/gsclib045
+setenv SRC_DATA $TC_PATH/DATA
+setenv SDC_FILE $SRC_DATA/top_conv3x3_synth.sdc
+
