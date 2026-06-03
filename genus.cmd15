@@ -1,0 +1,21 @@
+# Cadence Genus(TM) Synthesis Solution, Version 20.11-s111_1, built Apr 26 2021 14:57:38
+
+# Date: Thu Jan 08 18:56:45 2026
+# Host: cadence (x86_64 w/Linux 3.10.0-1160.el7.x86_64) (2cores*2cpus*1physical cpu*Intel(R) Core(TM) i7-10700 CPU @ 2.90GHz 16384KB)
+# OS:   CentOS Linux release 7.9.2009 (Core)
+
+gui_show
+set rep /soft/cadence/pdk/GPDK045/gsclib045_svt_v4.4/gsclib045
+set_attribute lib_search_path $rep
+set_attribute library "$rep/timing/slow_vdd1v0_basicCells.lib \
+$rep/timing/slow_vdd1v0_extvdd1v0.lib \
+$rep/timing/slow_vdd1v0_extvdd1v2.lib \
+$rep/timing/slow_vdd1v0_multibitsDFF.lib"
+read_hdl -vhdl csa.vhd
+read_hdl -vhdl cpa.vhd
+read_hdl -vhdl b_transformer.vhd
+read_hdl -vhdl encb.vhd
+read_hdl -vhdl mux5.vhd
+read_hdl -vhdl BoothMult.vhd
+read_hdl -vhdl conv3x3_core.vhd
+read_hdl -vhdl linebuf_window_3x3.vhd

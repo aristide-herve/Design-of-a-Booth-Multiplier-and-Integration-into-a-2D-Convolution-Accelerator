@@ -1,0 +1,108 @@
+Cadence Genus(TM) Synthesis Solution.
+Copyright 2021 Cadence Design Systems, Inc. All rights reserved worldwide.
+Cadence and the Cadence logo are registered trademarks and Genus is a trademark
+of Cadence Design Systems, Inc. in the United States and other countries.
+
+Version: 20.11-s111_1, built Mon Apr 26 05:57:38 PDT 2021
+Options: -legacy_ui 
+Date:    Thu Jan 08 18:56:45 2026
+Host:    cadence (x86_64 w/Linux 3.10.0-1160.el7.x86_64) (2cores*2cpus*1physical cpu*Intel(R) Core(TM) i7-10700 CPU @ 2.90GHz 16384KB) (3880248KB)
+PID:     13710
+OS:      CentOS Linux release 7.9.2009 (Core)
+
+Checking out license: Genus_Synthesis (21 seconds elapsed).
+
+
+***********************************************************************************************************
+***********************************************************************************************************
+
+
+
+Loading tool scripts...
+Finished loading tool scripts (7 seconds elapsed).
+
+WARNING: This version of the tool is 1718 days old.
+legacy_genus:/> gui_show
+legacy_genus:/> set rep /soft/cadence/pdk/GPDK045/gsclib045_svt_v4.4/gsclib045
+/soft/cadence/pdk/GPDK045/gsclib045_svt_v4.4/gsclib045
+legacy_genus:/> set_attribute lib_search_path $rep
+  Setting attribute of root '/': 'lib_search_path' = /soft/cadence/pdk/GPDK045/gsclib045_svt_v4.4/gsclib045
+legacy_genus:/> set_attribute library "$rep/timing/slow_vdd1v0_basicCells.lib \
+$rep/timing/slow_vdd1v0_extvdd1v0.lib \
+$rep/timing/slow_vdd1v0_extvdd1v2.lib \
+$rep/timing/slow_vdd1v0_multibitsDFF.lib"
+
+Threads Configured:2
+
+Reading library /soft/cadence/pdk/GPDK045/gsclib045_svt_v4.4/gsclib045/timing/slow_vdd1v0_multibitsDFF.lib
+  Message Summary for Library all 4 libraries:
+  ********************************************
+  Missing a function attribute in the output pin definition. [LBR-518]: 49
+  Appending library. [LBR-3]: 1
+  ********************************************
+ 
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.900000, 125.000000) in library 'slow_vdd1v0_multibitsDFF.lib'.
+        : The nominal operating condition is represented, either by the nominal PVT values specified in the library source (via nom_process,nom_voltage and nom_temperature respectively), or by the default PVT values (1.0,1.0,1.0).
+Warning : Ignoring unsupported lu_table_template. [LBR-403]
+        : Ignoring lu_table_template index type (input_voltage).
+        : LBR-403 is issued when an unsupported lu_table_template is encountered by GENUS.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.900000, 125.000000) in library 'slow_vdd1v0_extvdd1v0.lib'.
+Info    : Created nominal operating condition. [LBR-412]
+        : Operating condition '_nominal_' was created for the PVT values (1.000000, 0.900000, 125.000000) in library 'slow_vdd1v0_extvdd1v2.lib'.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNA' must have an output pin.
+        : Add the missing output pin(s), then reload the library. Else the library cell will be marked as timing model i.e. unusable. Timing_model means that the cell does not have any defined function. If there is no output pin, Genus will mark library cell as unusable i.e. the attribute 'usable' will be marked to 'false' on the libcell. Therefore, the cell is not used for mapping and it will not be picked up from the library for synthesis. If you query the attribute 'unusable_reason' on the libcell; result will be: 'Library cell has no output pins.'Note: The message LBR-9 is only for the logical pins and not for the power_ground pins. Genus will depend upon the output function defined in the pin group (output pin) of the cell, to use it for mapping. The pg_pin will not have any function defined.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'ANTENNA' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP10' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP10' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP2' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP2' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP3' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP3' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP4' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP4' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP5' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP5' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP6' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP6' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP7' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP7' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP8' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP8' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP9' must have an output pin.
+Warning : Library cell has no output pins defined. [LBR-9]
+        : Library cell 'DECAP9' must have an output pin.
+  Setting attribute of root '/': 'library' = /soft/cadence/pdk/GPDK045/gsclib045_svt_v4.4/gsclib045/timing/slow_vdd1v0_basicCells.lib  /soft/cadence/pdk/GPDK045/gsclib045_svt_v4.4/gsclib045/timing/slow_vdd1v0_extvdd1v0.lib  /soft/cadence/pdk/GPDK045/gsclib045_svt_v4.4/gsclib045/timing/slow_vdd1v0_extvdd1v2.lib  /soft/cadence/pdk/GPDK045/gsclib045_svt_v4.4/gsclib045/timing/slow_vdd1v0_multibitsDFF.lib
+legacy_genus:/> read_hdl -vhdl csa.vhd
+legacy_genus:/> read_hdl -vhdl cpa.vhd
+legacy_genus:/> read_hdl -vhdl b_transformer.vhd
+legacy_genus:/> read_hdl -vhdl encb.vhd
+legacy_genus:/> read_hdl -vhdl mux5.vhd
+legacy_genus:/> read_hdl -vhdl BoothMult.vhd
+legacy_genus:/> read_hdl -vhdl conv3x3_core.vhd
+legacy_genus:/> read_hdl -vhdl linebuf_window_3x3.vhd
+Warning : Initial values are ignored for synthesis. [VHDL-639]
+        : in file 'linebuf_window_3x3.vhd' on line 40.
+        : The specified construct has no effect on synthesis. In some cases (such as 'after' clauses in signal assignments) may cause a mismatch between and simulation.
+Warning : Initial values are ignored for synthesis. [VHDL-639]
+        : in file 'linebuf_window_3x3.vhd' on line 41.

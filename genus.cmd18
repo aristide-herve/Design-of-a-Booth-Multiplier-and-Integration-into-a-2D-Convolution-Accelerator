@@ -1,0 +1,252 @@
+# Cadence Genus(TM) Synthesis Solution, Version 20.11-s111_1, built Apr 26 2021 14:57:38
+
+# Date: Fri Jan 09 12:04:47 2026
+# Host: cadence (x86_64 w/Linux 3.10.0-1160.el7.x86_64) (2cores*2cpus*1physical cpu*Intel(R) Core(TM) i7-10700 CPU @ 2.90GHz 16384KB)
+# OS:   CentOS Linux release 7.9.2009 (Core)
+
+read_hdl -vhdl csa.vhd
+read_hdl -vhdl cpa.vhd
+read_hdl -vhdl b_transformer.vhd
+read_hdl -vhdl encb.vhd
+read_hdl -vhdl mux5.vhd
+read_hdl -vhdl BoothMult.vhd
+read_hdl -vhdl conv3x3_core.vhd
+read_hdl -vhdl linebuf_window_3x3.vhd
+read_hdl -vhdl top_conv3x3.vhd
+set rep /soft/cadence/pdk/GPDK045/gsclib045_svt_v4.4/gsclib045
+set_attribute lib_search_path $rep
+set_attribute library "$rep/timing/slow_vdd1v0_basicCells.lib \
+
+$rep/timing/slow_vdd1v0_extvdd1v0.lib \
+$rep/timing/slow_vdd1v0_extvdd1v2.lib \
+
+$rep/timing/slow_vdd1v0_multibitsDFF.lib"
+elaborate
+synthesize -to_generic
+gui_show
+define_clock -period 7000 -fall 80 -rise 80 -name clkin/designs/top_conv3x3/ports_in/clk
+external_delay -input 100 -clock [find -clock clkin] -edge_rise/designs/top_conv3x3/ports_in/clk
+what_is [find -clock clkin]
+external_delay -input 100 -clock [find -clock clkin] -edge_rise /designs/top_conv3x3/clk
+external_delay -input 100 -clock [find -clock clkin] -edge_rise /designs/top_conv3x3/clk
+external_delay -input 100 -clock [find -clock clkin] -edge_rise /designs/top_conv3x3/clk
+external_delay -input 100 -clock [find -clock clkin] -edge_rise /designs/top_conv3x3/clk
+external_delay -input 100 -clock [find -clock clkin] -edge_rise /designs/top_conv3x3/clk
+external_delay -input 100 -clock [find -clock clkin] -edge_rise /designs/top_conv3x3/clk
+define_clock -period 7000 -fall 80 -rise 80 -name clkin [get_pins /designs/top_conv3x3/clk]
+external_delay -input 100 -clock [find -clock clkin] -edge_rise /designs/top_conv3x3/clk
+external_delay -input 100 -clock [find -clock clkin] -edge_rise /designs/top_conv3x3/clk
+cd /designs/top_conv3x3/timing/external_delays/
+ls
+cd /
+external_delay -output 100 -clock [find -clock clkin] -edge_rise /designs/top_conv3x3/clk
+synthesize -to_mapped
+report timing
+define_clock -period 7000 -fall 80 -rise 80 -name clkin/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clkin] -edge_rise/designs/top_conv3x3/ports_in/*
+define_clock -period 7000 -fall 80 -rise 80 -name clkin/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clkin] -edge_rise/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clkin] -edge_rise/designs/top_conv3x3/ports_in/*
+define_clock -period 7000 -fall 80 -rise 80 -name clkin/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clkin] -edge_rise/designs/top_conv3x3/ports_in/clk
+external_delay -input 100 -clock [find -clock clkin] -edge_rise/designs/top_conv3x3/ports_in/*
+ls
+cd designs
+ls
+cd top_conv3x3
+ls
+cd timing
+ls
+cd external_delays
+ls
+cd /
+timing report
+report timing
+define_clock -period 7000 -fall 80 -rise 80 -name clkin/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clkin] -edge_rise/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clkin] -edge_rise /designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clkin] -edge_rise /designs/top_conv3x3/ports_in/*
+external_delay -output 100 -clock [find -clock clkin] -edge_rise /designs/top_conv3x3/ports_in/*
+external_delay -output 100 -clock [find -clock clkin] -edge_rise /designs/top_conv3x3/ports_out/*
+synthesize -to_mapped
+report timing
+ls
+cd designs
+ls
+tm top_conv3x3
+rm top_conv3x3
+ls
+cd ..
+read_hdl -vhdl csa.vhd
+read_hdl -vhdl cpa.vhd
+read_hdl -vhdl b_transformer.vhd
+read_hdl -vhdl encb.vhd
+read_hdl -vhdl mux5.vhd
+read_hdl -vhdl BoothMult.vhd
+read_hdl -vhdl conv3x3_core.vhd
+read_hdl -vhdl linebuf_window_3x3.vhd
+read_hdl -vhdl top_conv3x3.vhd
+elaborate
+gui_show
+synthesize -to_generic
+define_clock -period 7000 -fall 80 -rise 80 -name clkin/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clkin] -edge_rise/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clkin] -edge_rise [get_pins /designs/top_conv3x3/ports_in/clk]
+external_delay -input 100 -clock [find -clock clkin] -edge_rise/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clkin] -edge_rise/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clkin] -edge_rise/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clkin] -edge_rise/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clkin] -edge_rise /designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clkin] -edge_rise/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clk*] -edge_rise/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clk] -edge_rise/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clkin] -edge_rise/designs/top_conv3x3/ports_in/*
+define_clock -period 7000 -fall 80 -rise 80 -name clk/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clk] -edge_rise/designs/top_conv3x3/ports_in/*
+define_clock -period 7000 -fall 80 -rise 80 -name clk/designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clk] -edge_rise /designs/top_conv3x3/ports_in/*
+define_clock -period 7000 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+external_delay -input 100 -clock [find -clock clk] -edge_rise /designs/top_conv3x3/ports_in/*
+external_delay -output 100 -clock [find -clock clk] -edge_rise /designs/top_conv3x3/ports_out/*
+synthesize -to_mapped
+report timing
+define_clock -period 5000 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+synthesize -to_mapped
+report timing
+define_clock -period 2000 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 3000 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 4000 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 5000 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 4500 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 4650 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 4655 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+synthesize -to_mapped
+write_hdl -mapped top_conv3x3 > top_conv3x3_synth.v
+write_sdc > top_conv3x3_synth.sdc
+write_sdf > top_conv3x3_synth.sdf
+report timing
+define_clock -period 4655 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 4355 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 4225 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 4205 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 4215 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 4220 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 4223 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+synthesize -to_mapped
+report timing
+define_clock -period 4020 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 4020 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 4032 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 4030 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+synthesize -to_mapped
+report timing
+define_clock -period 3900 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 3902 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+synthesize -to_mapped
+report timing
+define_clock -period 3802 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 2802 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 3802 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 3902 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 3872 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 3874 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+report timing
+synthesize -to_mapped
+report timing
+define_clock -period 3870 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 3800 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 3871 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+synthesize -to_mapped
+report timing
+define_clock -period 3867 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 3846 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 3840 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+define_clock -period 3846 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+synthesize -to_mapped
+report timing
+define_clock -period 2000 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+synthesize -to_mapped
+report timing
+define_clock -period 2515 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+synthesize -to_mapped
+report timing
+define_clock -period 2510 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+synthesize -to_mapped
+report timing
+define_clock -period 2500 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+synthesize -to_mapped
+report timing
+define_clock -period 2000 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+synthesize -to_mapped
+report timing
+define_clock -period 2300 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+synthesize -to_mapped
+report timing
+define_clock -period 2360 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+synthesize -to_mapped
+report timing
+define_clock -period 2380 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+synthesize -to_mapped
+report timing
+define_clock -period 2340 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+synthesize -to_mapped
+report timing
+define_clock -period 2400 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+synthesize -to_mapped
+report timing
+define_clock -period 2450 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+report timing
+synthesize -to_mapped
+report timing
+define_clock -period 2449 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+synthesize -to_mapped
+report timing
+define_clock -period 2450 -fall 80 -rise 80 -name clk /designs/top_conv3x3/ports_in/*
+synthesize -to_mapped
+r les differents rapports pour cette configuration : contraintes de temps, surface, consomma-
+report timing
+report area
+report power
+write_hdl -mapped top_conv3x3 > top_conv3x3_synth.v
+vsim
+write_sdc > top_conv3x3_synth.sdc
+write_sdf > top_conv3x3_synth.sdf
+vsimwrite_sdf > top_conv3x3_synth.sdf
+write_sdf > top_conv3x3_synth.sdf
